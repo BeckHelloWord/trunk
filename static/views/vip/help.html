@@ -1,0 +1,23 @@
+<section id="vip-page" class="vip-wrap vip-page">
+    <!--成长值帮助 start-->
+    <div class="exp">
+        <div class="page-item details ">
+            <h2><i class="upgrade"></i>升级说明</h2>
+            <table class="upgrade-wrap">
+                    <!-- <tr v-for="val in list"> -->
+                    <tr v-for="val in list" v-bind:class="val.on" v-on:click="changetab" data-id="{{val.levelSettingId}}">
+                        <td class="crown">
+                            <i v-bind:style="'background:url(https://bxwd-img.oss-cn-hangzhou.aliyuncs.com/'+val.levelSettingIcon+') no-repeat center;background-size:100% 100%;'"></i>
+                        </td>
+                        <td class="grade">{{val.levelSettingName}}</td>
+                        <td>所需成长值{{val.levelSettingGrowthLow}}</td>
+                    </tr>
+            </table>
+        </div>
+        <div class="page-item details" v-show="myvip != ''">
+            <h2><i class="growth"></i>{{myvip}}特权</h2>
+            <list></list>
+        </div>
+    </div>
+    <!--成长值帮助 end-->
+</section>

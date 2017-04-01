@@ -1,0 +1,237 @@
+<!-- 详情 start-->
+<section class="pt4 youpinG">
+    <!--标简介-->
+    <section class="main youpin compd">
+        <div class="detail_title t_c">
+            <!--<h3 class="g555">{{list.title}}</h3>-->
+            <div class="taiping">
+                <span>账户资金安全由太平财险承保</span>
+            </div>
+            <ul>
+                <li>
+                    <p class="fz1">借款年利率</p>
+                    <p class="num">{{list.yearRate|expectYear}}<span class="fz2">%</span></p>
+                </li>
+                <li>
+                    <p class="fz1">投资期限</p>
+                    <p class="num">{{list.cycleNumber}}<span class="fz2 adjust">{{list.cycleTypeShow}}</span></p>
+                </li>
+            </ul>
+            <div class="cc liner">
+                <div class="load_line"><span v-bind:style="'width:'+schedule+'%'"></span></div>
+                <span class="percent" v-bind:class="percentColor">{{schedule}}%</span>
+            </div>
+        </div>
+        <div class="detail_plain">
+            <ul>
+                <li class="cc">
+                    <span class="fl">{{list.investMin}}元起投</span>
+                    <span class="fr" v-bind:class="detailsType.colorClass">{{detailsType.txt}}</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    </div>
+    <!--标简介-->
+    <ul class="compd safeguard-box commt">
+        <li class="cc">
+            <span class="fl">到期结算收益</span>
+            <span class="fr safeguard" v-link="{ path: '/center/youpin/safety/', replace: false }">多重保障</span>
+        </li>
+    </ul>
+    <!--标详情-->
+    <section class="details commt">
+        <ul class="column cc">
+            <li class="on" data-type="explain" v-gesture:tap.stop.prevent="cutTabs">产品说明</li>
+            <li data-type="project" v-gesture:tap.stop.prevent="cutTabs">项目清单</li>
+            <li data-type="record" v-gesture:tap.stop.prevent="cutTabs">{{list.joinedNumber?list.joinedNumber:0}}人加入</li>
+        </ul>
+        <div class="items">
+
+            <!--产品说明 start-->
+            <div class="product showbox">
+                <div class="element">
+                    <div class="ptblr">
+                        <table>
+                            <tr>
+                                <td>总额(元)</td>
+                                <td>{{list.amount|expectYear}}</td>
+                            </tr>
+                            <tr>
+                                <td>收益</td>
+                                <td>由实际投资的项目决定</td>
+                            </tr>
+                            <tr>
+                                <td>退出</td>
+                                <td>到期退出，完成时间视市场而定</td>
+                            </tr>
+                            <tr>
+                                <td>收费</td>
+                                <td>加入费用{{list.joinFee}}元，退出费用{{list.outFee}}元</td>
+                            </tr>
+                            <tr>
+                                <td>投标截止日期</td>
+                                <td>{{list.overTime}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="brief">
+                    <div class="compdl" v-gesture:tap.stop.prevent="flex">
+                        <h2 class="arrow"><i></i>项目简介</h2>
+                    </div>
+                    <div class="defaultHideen">
+                        <p class="ptblr bgfd">
+                            {{{list.introduce}}}
+                        </p>
+                    </div>
+                </div>
+                <div class="flow">
+                    <div class="compdl" v-gesture:tap.stop.prevent="flex">
+                        <h2 class="arrow"><i></i>项目原理</h2>
+                    </div>
+
+                    <div class="defaultHideen ptblr bgfd ">
+                        <ul class="flow-one cc">
+                            <li>
+                                <i></i>
+                                <p>个人账户</p>
+                            </li>
+                            <li>
+                                <i></i>
+                                <p>开放加入</p>
+                            </li>
+                        </ul>
+                        <ul class="flow-two cc">
+                            <li>
+                                <i></i>
+                                <p>续投或退出</p>
+                            </li>
+                            <li>
+                                <i></i>
+                                <p>借款人还款</p>
+                            </li>
+                            <li>
+                                <i></i>
+                                <p>系统自动投标</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="problem">
+                    <div class="compdl" v-gesture:tap.stop.prevent="flex">
+                        <h2 class="arrow"><i></i>常见问题</h2>
+                    </div>
+                    <div class="defaultHideen">
+                        <div class="ptblr bgfd">
+                            {{{list.commonProblem}}}
+                        </div>
+                    </div>
+                </div>
+                <div class="service" v-link="{ path: '/center/youpin/service/', replace: false }">
+                    <div class="compdl">
+                        <h2 class="arrow"><i></i>服务协议</h2>
+                    </div>
+                </div>
+            </div>
+            <!--产品说明 end-->
+
+            <!--项目清单 start-->
+            <div class="project compd">
+                <template v-if="projectlist.length > 0">
+                        <ul>
+                            <a v-for="item in projectlist" @click="goDetail(item.borrowId)">
+                                <li>
+                                    <p class="clearfix"><span class="ellipsis"><font style="position: relative">{{item.borrowTitle}}<em v-if="item.borrowIsTransfer" class="transfer">转</em></font></span><span>{{item.borrowStatusName}}</span>
+                                    </p>
+                                    <p class="clearfix"><span class="year">{{item.borrowLoanRate}}%</span><span>{{item.borrowCycle}}{{item.borrowCycleTypeName}}</span>
+                                    </p>
+                                </li>
+                            </a>
+                        </ul>
+                    </template>
+                <template v-else>
+                        <table>
+                            <tbody>
+                            <tr class="noData">
+                                <td>哎呀,暂无内容</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </template>
+
+            </div>
+            <!--项目清单 end-->
+
+            <!--加入记录 start-->
+            <div class="record">
+                <div class="top-list compd">
+                    <ul class="cc">
+                        <li>
+                            <div class="rankingImg">
+                                <i></i>
+                            </div>
+                            <p>{{jion[1]?jion[1].username:"暂无"}}</p>
+                            <p>{{jion[1].amount|formatMoney}}</p>
+                        </li>
+                        <li class="list-middle">
+                            <div class="rankingImg first">
+                                <i></i>
+                            </div>
+                            <p>{{jion[0]?jion[0].username:"暂无"}}</p>
+                            <p>{{jion[0].amount|formatMoney}}</p>
+                        </li>
+                        <li>
+                            <div class="rankingImg">
+                                <i></i>
+                            </div>
+                            <p>{{jion[2]?jion[2].username:"暂无"}}</p>
+                            <p>{{jion[2].amount|formatMoney}}</p>
+                        </li>
+                    </ul>
+                </div>
+                <p class="invest-liist compd cc"><span class="fl">投资人<strong>(共{{list.joinedNumber?list.joinedNumber:0}}人)</strong></span><span class="fr">投资金额(元)</span>
+                </p>
+                <template v-if="jionlist.length > 0">
+                        <div class="record-list compd">
+                            <table>
+                                <tbody>
+                                <tr v-for="item in jionlist">
+                                    <td width="21%">
+                                        <i v-if="item.userFace"  class="headimg"
+                                           v-bind:style="'background-image:url(https://bxwd-img.oss-cn-hangzhou.aliyuncs.com/'+item.userFace+');'"></i>
+                                        <i v-else class="defaultHead"></i>
+                                    </td>
+                                    <td width="40%">{{item.username}}</td>
+                                    <td class="list-right">
+                                        <span class="g333">{{item.amount|formatInvest}}</span>
+                                        <p class="g999">{{item.dateCreated}}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+                <template v-else>
+                        <table>
+                            <tbody>
+                            <tr class="noData">
+                                <td>哎呀,暂无内容</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </template>
+            </div>
+            <!--加入记录 end-->
+        </div>
+    </section>
+    <!--标详情-->
+    <a href="javascript:;" v-show="showMore" show-btn="loadData" vip-visibled="loadMore" v-on:click="" class="button_b page_button vip_load">加载更多</a>
+    <a href="javascript:;" class="noMore">没有更多了</a>
+    <!--下载APP-->
+    <a href="http://a.app.qq.com/o/simple.jsp?pkgname=cc.bxjr.bxapp" class="app-wrap" v-if="isApp">
+        <i class="app-close" v-on:click="appClosed"></i>
+    </a>
+    <p class="remind">市场有风险，投资需谨慎</p>
+</section>
+<!-- 详情 end-->

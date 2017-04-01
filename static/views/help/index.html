@@ -1,0 +1,26 @@
+<style>html,body{background-color:#edf0f3;}</style>
+<article class="helpMain"><div class="outMain">
+    <section class="section01" transition="expand" v-gesture:swipeLeft="moveLeft($event)"  v-gesture:swipeRight="moveRight($event)" >
+        <ul v-bind:style="ulwidth" class="sectionUl">
+			<template v-for="item in indexInfo" >
+				 <li v-if="$index==helpKeyId" class="on"  data-helpKey="{{item.helpKey}}" data-index="{{$index}}"  v-on:click="click" v-bind:style="liwidth">
+					{{item.name}}
+				</li>
+				<li v-else data-helpKey="{{item.helpKey}}"  v-on:click="click" data-index="{{$index}}" v-bind:style="liwidth">
+				   {{item.name}}
+				</li>
+			</template>
+        </ul>
+    </section>
+    </div>
+    <section class="sectionTab">
+        <list></list>
+    </section>
+    <table class="tableA">
+        <tbody v-show="show">
+        <tr class="noData">
+            <td colspan="3">暂无数据</td>
+        </tr>
+        </tbody>
+    </table>
+</article>

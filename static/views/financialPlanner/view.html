@@ -1,0 +1,87 @@
+<section id="page" class="customer_page" transition="slideRight">
+	<div class="info" v-bind:style="{backgroundColor : viewbgc}">
+	<template v-if="customer.info.isSuccess == false">
+		<h1>{{customer.info.message}}</h1>
+	</template>
+	<template v-if="customer.info.isSuccess == true">
+		<strong>{{{customer.info.data.realName | HandleName}}}</strong>
+		<p>{{{customer.info.data.mobile | strTranslated}}}</p>
+		<div class="info_b">
+			<div>余额(元) <p>{{customer.info.data.availableMoney}}</p></div>
+			<div>在投月月丰(元)<p>{{customer.info.data.finaAmount}}</p></div>
+			<div>在投散标(元) <p>{{customer.info.data.waitingReceiptAllMoney}}</p></div>
+		</div>
+	</template>
+	</div>
+	<div class="view-tab">
+		<div class="selected" v-on:click="changeTab" data-tab="1">在投散标</div>
+		<div  v-on:click="changeTab" data-tab="2">在投月月丰</div>
+	</div>
+	<div style="clear: both"></div>
+	<div class="list js_tab" id="showTab_1">
+		<table class="tableA listhead">
+			<thead>
+				<tr>
+					<th width="33%">投资项目</th>
+					<th width="33%">在投金额(元)</th>
+					<th width="33%">投资日期</th>
+				</tr>
+			</thead>
+		</table>
+		<table class="tableA listbody">
+			<tbody v-if="customer.list.data.length > 0">
+				<tr v-for="temp in customer.list.data">
+					<td><a :href="'baoxiang://APPProjectInvesting?type='+temp.type+'&investId='+temp.investId">
+					<p>{{ temp.details }}</p>
+					</a></td>
+					<td width="33%"><a :href="'baoxiang://APPProjectInvesting?type='+temp.type+'&investId='+temp.investId">{{ temp.investAmount  }}</a></td>
+					<td width="33%"><a :href="'baoxiang://APPProjectInvesting?type='+temp.type+'&investId='+temp.investId">{{ temp.investTime .substring(0,10) }}</a></td>
+				</tr>
+			</tbody>
+			<tbody v-if="customer.list.data.length < 1 && customer.list.isSuccess == true">
+				<tr class="noData">
+					<td colspan="3">Ta还没有投资过，赶紧联系Ta！</td>
+				</tr>
+			</tbody>
+			<tbody v-if="customer.list.data.length < 1 && customer.list.isSuccess == false">
+				<tr class="noData">
+					<td colspan="3">{{ customer.list.message }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="js_tab list" id="showTab_2" style="display: none">
+		<table class="tableB listhead">
+			<thead>
+			<tr>
+				<th>持有(元)</th>
+				<th width="50%">待收益(元)</th>
+			</tr>
+			</thead>
+		</table>
+		<table class="tableB listbody">
+			<tbody v-if="customer.yyf.data.length > 0">
+			<tr v-for="temp in customer.yyf.data">
+				<td width="50%">
+					{{temp.finaTitle}}<br/>
+					{{temp.capital}}
+				</td>
+				<td width="50%">
+					<span class="gary">{{temp.deadline}}</span><br/>
+					{{temp.income}}
+				</td>
+			</tr>
+			</tbody>
+			<tbody v-if="customer.yyf.data.length < 1 && customer.list.isSuccess == true">
+			<tr class="noData">
+				<td colspan="3">Ta还没有投资过，赶紧联系Ta！</td>
+			</tr>
+			</tbody>
+			<tbody v-if="customer.yyf.data.length < 1 && customer.list.isSuccess == false">
+			<tr class="noData">
+				<td colspan="3">{{ customer.list.message }}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

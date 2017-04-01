@@ -1,0 +1,58 @@
+<!--成长值记录 start-->
+<section id="vip-page" class="vip-wrap vip-page record-wrap">
+
+    <div class="exp">
+        <div class="page-item details">
+            <h2><i class="growth"></i>成长值介绍</h2>
+            <div class="pl4">
+                <div><b>当前成长值</b> = <b>投资成长值</b> - <b>过期成长值</b></div>
+                <!--p><i class="remind"></i>成长值=投资成长值+任务成长值-过期成长值</p-->
+                <ul>
+                    <li>1.投资成长值: 投资理财项目时，根据实际投资金额取整后 1 : 1 获得(不含添添金);</li>
+                    <!--li>2.任务成长值:通过完成特定任务、参与运营活动等方式获得;</li-->
+                    <li>2.过期成长值: 自获得之日起180天内有效，过期会导致级别下降。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+    <div class="record" v-if="list.length>0">
+        <div class="details clearfix mothInfo"><span class="fl month">总计</span><span
+                class="fr money"><strong>{{sum}}</strong></span>
+        </div>
+        <div class="details">
+            <ul>
+                <li class="clearfix" v-for="info in list">
+                    <div class="fl history">
+                        <p>{{info.reason}}</p>
+                        <span>{{info.dateCreated|formatDate}}</span>
+                    </div>
+                    <div class="fr deal">
+                        <p>{{info.growthAffect<=0?info.growthAffect:'+'+info.growthAffect}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--提醒模块 start-->
+    <table class="tableA">
+        <tbody v-show="show">
+        <tr class="noData">
+            <td colspan="3">暂无数据</td>
+        </tr>
+        </tbody>
+        <tbody v-show="loading">
+        <tr class="loadinfo">
+            <td colspan="3">努力加载中...</td>
+        </tr>
+        </tbody>
+        <tbody v-show="nodata">
+        <tr class="noload">
+            <td colspan="3">没有更多数据了。</td>
+        </tr>
+        </tbody>
+    </table>
+    <!--提醒模块 end-->
+    <a href="javascript:;" v-show="stillMore" show-btn="loadData" vip-visibled="loadMore"  v-on:click="loadData" class="button_b page_button vip_load">加载更多</a>
+</section>
+<!--成长值记录 end-->

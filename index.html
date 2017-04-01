@@ -1,0 +1,56 @@
+<!doctype html>
+<html id="app" _manifest="bx.appcache">
+<head>
+<meta charset="UTF-8">
+<title v-text="Name"></title>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,minimum-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no,email=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="宝象金融" />
+<link rel="apple-touch-icon-precomposed" href="static/src/logo.png"/>
+<script src="static/lib/sea.js"></script>
+</head>
+<body :class=[bodyClass,bodyColor]>
+<navigation></navigation>
+
+<router-view></router-view>
+
+<script src="static/lib/zepto.min.js"></script>
+<script src="static/lib/vue.min.js"></script>
+<script src="static/lib/vue-router.min.js"></script>
+<script src="static/lib/vue-gesture.js"></script>
+<script>
+(function() {
+window.setTokenFlag=true
+window.setToken = function(accessToken){
+     if(accessToken&&accessToken=="app"){
+        try{
+            localStorage.removeItem('persion');
+        }catch(r){
+            sessionStorage.removeItem('persion');
+        }
+    }else{
+        try{
+            result = JSON.stringify({"accessToken": accessToken});
+            setTimeout(function() {
+                window.setTokenFlag=true  
+            }, 200);  
+        }catch(r){
+            result = JSON.stringify({"accessToken": accessToken});
+            setTimeout(function() {
+                window.setTokenFlag=true  
+            }, 200);
+        }
+    }
+};
+window.jumpApp = function(response) {
+    try{localStorage.setItem('appFunc',JSON.stringify(response));}catch(r)
+    {sessionStorage.setItem('appFunc',JSON.stringify(response));}
+}
+seajs.config({base:'./static', charset:'utf-8', map: [[ /^(.*\.(?:css|js|html))(.*)$/i, '$1?v=1.0.1']], paths:{}});
+seajs.use(['app.js']);
+})();
+</script>
+</body>
+</html>
